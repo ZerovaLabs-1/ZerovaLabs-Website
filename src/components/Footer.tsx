@@ -11,10 +11,13 @@ export default function Footer() {
           
           {/* Brand */}
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
-            <div className="font-display font-bold text-2xl tracking-tighter flex items-end mb-4 text-white">
-              <span>ZEROVA</span>
-              <div className="w-2 h-2 rounded-full bg-brand-accent ml-1 mb-1 shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
-            </div>
+            <a href="#home" className="inline-block mb-4">
+              <img
+                src="/logo.jpeg"
+                alt="Zerova Labs"
+                className="h-10 w-auto object-contain brightness-110"
+              />
+            </a>
             <p className="text-slate-400 text-sm mb-6 leading-relaxed">
               Premium IT solutions and advanced engineering education. Empowering the next generation of tech.
             </p>

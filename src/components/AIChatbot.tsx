@@ -6,7 +6,7 @@ export default function AIChatbot() {
   return (
     <section id="ai" className="py-24 relative overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-secondary/20 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1506h-150brand-secondary/20 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -23,7 +23,7 @@ export default function AIChatbot() {
             </div>
             
             <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Master Communication with <span className="text-glow text-transparent bg-clip-text bg-gradient-to-r from-brand-secondary to-brand-accent">ZeroAI</span>
+              Master Communication with <span className="text-glow text-transparent bg-clip-text bg-linear-to-rrom-brand-secondary to-brand-accent">ZeroAI</span>
             </h2>
             
             <p className="text-slate-400 text-lg mb-8 leading-relaxed max-w-lg">
@@ -65,7 +65,7 @@ export default function AIChatbot() {
             {/* Outer Glow frame */}
             <div className="absolute inset-0 bg-gradient-primary rounded-[2.5rem] blur-xl opacity-30 animate-pulse-slow" />
             
-            <div className="relative glass border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col h-[500px] shadow-2xl bg-brand-darker/80 backdrop-blur-2xl">
+            <div className="relative glass border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col h-125 shadow-2xl bg-brand-darker/80 backdrop-blur-2xl">
               
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/5">
@@ -106,7 +106,7 @@ export default function AIChatbot() {
                     className="w-full bg-black/40 border border-white/10 rounded-full py-3 pl-5 pr-12 text-sm text-white focus:outline-none focus:border-brand-primary transition-colors"
                   />
                   <div className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center cursor-pointer hover:bg-brand-secondary transition-colors">
-                    <Send size={14} className="text-white translate-x-[-1px] translate-y-[1px]" />
+                    <Send size={14} className="text-white -translate-x-px translate-y-px" />
                   </div>
                 </div>
               </div>
@@ -136,7 +136,7 @@ function ChatBubble({ children, from, delay }: { children: ReactNode, from: 'ai'
       transition={{ delay, duration: 0.4 }}
       className={`flex max-w-[85%] ${isAI ? 'self-start' : 'self-end'} ${isAI ? 'items-end' : 'items-end flex-row-reverse'} gap-2`}
     >
-      <div className={`w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center ${isAI ? 'bg-brand-primary' : 'bg-slate-700'}`}>
+      <div className={`w-6 h-6 rounded-full shrink-0 flex items-center justify-center ${isAI ? 'bg-brand-primary' : 'bg-slate-700'}`}>
         {isAI ? <Sparkles size={12} className="text-white" /> : <User size={12} className="text-white" />}
       </div>
       <div className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${

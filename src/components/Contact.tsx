@@ -13,11 +13,11 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             <div className="text-brand-accent font-mono text-sm tracking-widest mb-4 flex items-center gap-2">
-              <span className="w-8 h-[1px] bg-brand-accent" /> GET IN TOUCH
+              <span className="w-8 h-px bg-brand-accent" /> GET IN TOUCH
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Let's build{' '}
-              <span className="bg-gradient-to-r from-brand-accent to-orange-400 bg-clip-text text-transparent">together.</span>
+              <span className="bg-linear-to-r from-brand-accent to-orange-400 bg-clip-text text-transparent">together.</span>
             </h2>
             <p className="text-slate-400 mb-10 text-lg leading-relaxed max-w-md">
               Whether you need strategic consulting, an AI integration, or want to upskill your team, we're here to help.

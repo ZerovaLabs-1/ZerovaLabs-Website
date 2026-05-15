@@ -36,12 +36,12 @@ export default function Navbar() {
     <>
       {/* Scroll progress bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-brand-accent z-[60] origin-left shadow-[0_0_10px_rgba(239,68,68,0.6)]"
+        className="fixed top-0 left-0 right-0 h-0.5 bg-brand-accent z-60 origin-left shadow-[0_0_10px_rgba(239,68,68,0.6)]"
         style={{ scaleX }}
       />
 
       {/* Navbar */}
-      <nav className={`fixed top-[2px] left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass py-3 border-b border-white/5 shadow-lg shadow-black/50' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0.5 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass py-3 border-b border-white/5 shadow-lg shadow-black/50' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
 
           {/* Logo */}
@@ -72,23 +72,23 @@ export default function Navbar() {
           {/* Hamburger — animated bars */}
           <button
             onClick={() => setOpen(o => !o)}
-            className="lg:hidden relative z-[60] w-10 h-10 flex flex-col items-center justify-center gap-[6px] group"
+            className="lg:hidden relative z-60 w-10 h-10 flex flex-col items-center justify-center gap-1.5 group"
             aria-label="Toggle menu"
           >
             <motion.span
               animate={isMobileMenuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="block w-6 h-[2px] bg-white origin-center"
+              className="block w-6 h-0.5 bg-white origin-center"
             />
             <motion.span
               animate={isMobileMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
               transition={{ duration: 0.2 }}
-              className="block w-6 h-[2px] bg-white origin-center"
+              className="block w-6 h-0.5 bg-white origin-center"
             />
             <motion.span
               animate={isMobileMenuOpen ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="block w-6 h-[2px] bg-white origin-center"
+              className="block w-6 h-0.5 bg-white origin-center"
             />
           </button>
         </div>
@@ -106,7 +106,7 @@ export default function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={close}
-              className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-55 bg-black/60 backdrop-blur-sm lg:hidden"
             />
 
             {/* Sheet */}
@@ -116,7 +116,7 @@ export default function Navbar() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 260 }}
-              className="fixed bottom-0 left-0 right-0 z-[56] lg:hidden rounded-t-[2rem] overflow-hidden"
+              className="fixed bottom-0 left-0 right-0 z-56 lg:hidden rounded-t-4xl overflow-hidden"
               style={{ boxShadow: '0 -20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)' }}
             >
               {/* Glass background */}

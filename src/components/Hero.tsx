@@ -8,7 +8,6 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
 
-  const globeY  = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
   const textY   = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
@@ -21,13 +20,23 @@ export default function Hero() {
       <motion.div style={{ y: useTransform(scrollYProgress, [0,1], ['0%','20%']) }}
         className="absolute bottom-0 left-1/4 w-[40vh] h-[40vh] bg-teal-500/8 rounded-full blur-[110px] pointer-events-none z-0" />
 
-      {/* Background Globe — hidden on mobile to avoid clutter */}
+      {/* Desktop background Globe (ambient) */}
       <motion.div
-        style={{ y: globeY, opacity }}
-        className="absolute inset-0 pointer-events-none z-0 hidden sm:flex items-center justify-end sm:-right-64"
+        style={{ y: useTransform(scrollYProgress, [0,1], ['0%','25%']), opacity }}
+        className="absolute inset-0 pointer-events-none z-0 hidden sm:flex items-center justify-end -right-64"
       >
-        <div className="w-[900px] max-w-none opacity-30 mix-blend-screen">
+        <div className="w-225 max-w-none opacity-25 mix-blend-screen">
           <Globe />
+        </div>
+      </motion.div>
+
+      {/* Mobile — Globe behind text, centered, low opacity */}
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0,1], ['0%','15%']), opacity }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 lg:hidden"
+      >
+        <div className="w-85 sm:w-115 opacity-[0.22]">
+          <Earth />
         </div>
       </motion.div>
 
@@ -42,16 +51,25 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="flex flex-col items-start pt-10 lg:pt-0"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold tracking-widest mb-8">
+            <motion.img
+              src="/logo.jpeg"
+              alt="Zerova Labs"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="h-12 sm:h-14 w-auto object-contain brightness-110 mb-6"
+            />
+
+            {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold tracking-widest mb-8">
               <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
               ZEROVA LABS
-            </div>
+            </div> */}
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.08]">
               Building Solutions.<br />
               Empowering Minds.<br />
               Creating The{' '}
-              <span className="bg-gradient-to-r from-brand-accent to-orange-400 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-brand-accent to-orange-400 bg-clip-text text-transparent">
                 Future.
               </span>
             </h1>
@@ -71,22 +89,15 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right — Earth Globe */}
-          {/* Mobile/tablet: centered below text, capped size */}
-          {/* Desktop: right column, larger */}
+          {/* Desktop — Earth in right column */}
           <motion.div
             style={{ y: useTransform(scrollYProgress, [0,1], ['0%','-10%']) }}
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-            className="flex items-center justify-center w-full"
+            className="hidden lg:flex items-center justify-center w-full"
           >
-            {/* Mobile: show smaller, centered */}
-            <div className="w-[280px] sm:w-[360px] md:w-[420px] lg:hidden">
-              <Earth />
-            </div>
-            {/* Desktop: full column width */}
-            <div className="hidden lg:block w-full max-w-[520px]">
+            <div className="w-full max-w-130">
               <Earth />
             </div>
           </motion.div>
