@@ -51,19 +51,10 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="flex flex-col items-start pt-10 lg:pt-0"
           >
-            <motion.img
-              src="/logo.jpeg"
-              alt="Zerova Labs"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="h-12 sm:h-14 w-auto object-contain brightness-110 mb-6"
-            />
-
-            {/* <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold tracking-widest mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold tracking-widest mb-8">
               <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
               ZEROVA LABS
-            </div> */}
+            </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.08]">
               Building Solutions.<br />

@@ -1,43 +1,96 @@
-import { motion } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { ArrowRight, Zap } from 'lucide-react';
 
 export default function CTA() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const leftX  = useTransform(scrollYProgress, [0, 1], ['-4%', '4%']);
+  const rightX = useTransform(scrollYProgress, [0, 1], ['4%', '-4%']);
+  const blobY  = useTransform(scrollYProgress, [0, 1], ['-20%', '20%']);
+
   return (
-    <section className="py-24 relative overflow-hidden flex items-center justify-center">
-      {/* Animated Glowing Background */}
-      <div className="absolute inset-0 bg-brand-bg">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] bg-brand-accent/5 rounded-full blur-[150px] animate-pulse-slow" />
-      </div>
+    <section ref={ref} className="py-24 relative overflow-hidden">
+      {/* Parallax blobs */}
+      <motion.div style={{ y: blobY }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-accent/6 rounded-full blur-[150px] pointer-events-none" />
+      <motion.div style={{ y: useTransform(scrollYProgress, [0,1], ['10%','-10%']) }}
+        className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-500/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-        <motion.div
-           initial={{ opacity: 0, scale: 0.9 }}
-           whileInView={{ opacity: 1, scale: 1 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.6 }}
-           className="glass p-12 md:p-20 rounded-[3rem] border border-brand-accent/20 shadow-[0_0_50px_rgba(239,68,68,0.1)] backdrop-blur-2xl"
-        >
-          <div className="w-20 h-20 bg-brand-accent/10 flex items-center justify-center rounded-full mx-auto mb-8 border border-brand-accent/30 shadow-[0_0_30px_rgba(239,68,68,0.4)]">
-             <div className="w-10 h-10 bg-brand-accent rounded-full animate-ping opacity-75 absolute" />
-             <div className="w-8 h-8 rounded-full bg-brand-accent relative z-10" />
-          </div>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            Ready To Build The <span className="text-brand-accent text-glow">Future</span> With Us?
-          </h2>
-          <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto">
-            Whether you need enterprise-grade software solutions or want to join our academy to level up your engineering skills.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-8 py-4 bg-brand-accent text-white font-bold rounded-xl shadow-[0_0_20px_rgba(239,68,68,0.5)] hover:shadow-[0_0_40px_rgba(239,68,68,0.8)] hover:-translate-y-1 transition-all duration-300">
-              Start a Project
-            </button>
-            <button className="px-8 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 flex items-center justify-center gap-2 transition-all duration-300">
-              Join Our Academy <ArrowRight size={18} />
-            </button>
-          </div>
-        </motion.div>
+          {/* Left — Big text */}
+          <motion.div style={{ x: leftX }}
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold tracking-widest mb-8">
+              <Zap size={12} /> LET'S WORK TOGETHER
+            </div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6">
+              Ready To<br />
+              Build The{' '}
+              <span className="bg-linear-to-r from-brand-accent to-orange-400 bg-clip-text text-transparent">
+                Future
+              </span>
+              <br />With Us?
+            </h2>
+            <p className="text-slate-400 text-lg leading-relaxed max-w-md">
+              Whether you need enterprise-grade software or want to join our academy — we're ready when you are.
+            </p>
+          </motion.div>
+
+          {/* Right — Action panel */}
+          <motion.div style={{ x: rightX }}
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="relative"
+          >
+            <div className="p-8 md:p-10 rounded-3xl border border-white/8 bg-brand-surface/40 backdrop-blur-xl"
+              style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 40px 80px -20px rgba(0,0,0,0.6)' }}>
+
+              {/* Ping dot */}
+              <div className="flex items-center gap-3 mb-8">
+                <div className="relative w-3 h-3">
+                  <div className="absolute inset-0 rounded-full bg-brand-accent animate-ping opacity-60" />
+                  <div className="relative w-3 h-3 rounded-full bg-brand-accent" />
+                </div>
+                <span className="text-xs font-mono text-slate-400 tracking-widest">ACCEPTING NEW PROJECTS</span>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                <button className="w-full px-8 py-4 bg-brand-accent text-white font-bold rounded-xl flex items-center justify-between group hover:shadow-[0_0_40px_rgba(239,68,68,0.5)] hover:-translate-y-0.5 transition-all duration-300">
+                  <span>Start a Project</span>
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button className="w-full px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-xl flex items-center justify-between group hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                  <span>Join Our Academy</span>
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+
+              {/* Social proof */}
+              <div className="flex items-center gap-4 pt-6 border-t border-white/5">
+                <div className="flex -space-x-2">
+                  {['JC', 'SM', 'DK', 'AV'].map((init, i) => (
+                    <div key={i} className="w-8 h-8 rounded-full bg-linear-to-br from-brand-accent/60 to-orange-500/60 border-2 border-brand-surface flex items-center justify-center text-[10px] font-bold text-white">
+                      {init}
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-slate-500">
+                  Joined by <span className="text-white font-semibold">100+ students</span> & clients
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );

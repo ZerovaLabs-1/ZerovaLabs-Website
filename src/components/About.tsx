@@ -31,10 +31,10 @@ export default function About() {
               style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 40px 80px -20px rgba(0,0,0,0.8)' }}>
               <motion.img
                 style={{ y: imgY }}
-                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
-                alt="Cyber tech environment"
+                src="/logo.jpeg"
+                alt="Zerova Labs"
                 loading="lazy"
-                className="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700 scale-110"
+                className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-700 scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-bg via-transparent to-transparent opacity-80" />
               <div className="absolute bottom-8 left-8 glass px-6 py-4 rounded-xl border border-brand-accent/30 text-white"
