@@ -15,7 +15,7 @@ export default function About() {
   const imgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
 
   return (
-    <section ref={ref} id="about" className="py-24 relative overflow-hidden">
+    <section ref={ref} id="about" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -24,14 +24,14 @@ export default function About() {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden"
+            className="relative lg:-ml-8 lg:translate-x-4"
           >
             <div className="absolute -inset-4 bg-gradient-to-r from-brand-accent/15 to-teal-500/15 blur-2xl rounded-full opacity-60 animate-pulse-slow" />
-            <div className="relative aspect-square sm:aspect-[4/3] lg:aspect-square rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl"
-              style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06), 0 40px 80px -20px rgba(0,0,0,0.8)' }}>
+            <div className="relative aspect-square sm:aspect-[4/3] lg:aspect-square rounded-[2rem] overflow-hidden border border-cyan-400/70"
+              style={{ boxShadow: '0 0 6px rgba(0,212,255,0.9), 0 0 20px rgba(0,212,255,0.6), 0 0 50px rgba(0,212,255,0.35), 0 0 90px rgba(0,212,255,0.15), inset 0 1px 0 rgba(255,255,255,0.06), 0 40px 80px -20px rgba(0,0,0,0.8)' }}>
               <motion.img
                 style={{ y: imgY }}
-                src="/logo.jpeg"
+                src="/aboutUs.webp"
                 alt="Zerova Labs"
                 loading="lazy"
                 className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-700 scale-110"
