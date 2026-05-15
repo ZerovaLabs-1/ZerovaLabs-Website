@@ -22,60 +22,79 @@ const Earth: FC<EarthProps> = ({
   diffuse = 1.2,
   mapSamples = 16000,
   mapBrightness = 11,
-  baseColor = [0.016, 0.141, 0.18] as [number, number, number],
-  markerColor = [0.937, 0.267, 0.267] as [number, number, number],
-  glowColor = [0.02, 0.38, 0.45] as [number, number, number],
+  baseColor = [0.016, 0.141, 0.18],
+  markerColor = [0.937, 0.267, 0.267],
+  glowColor = [0.02, 0.38, 0.45],
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const phi = useRef(0);
   const pointerDown = useRef<number | null>(null);
   const rotation = useRef(0);
+  const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
+  const rafId = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const wrapper = wrapperRef.current;
+    if (!canvas || !wrapper) return;
 
-    const SIZE = 600;
-    canvas.width = SIZE * 2;
-    canvas.height = SIZE * 2;
+    const dpr = Math.min(window.devicePixelRatio, 2);
 
-    const globe = createGlobe(canvas, {
-      devicePixelRatio: 2,
-      width: SIZE * 2,
-      height: SIZE * 2,
-      phi: 0,
-      theta,
-      dark,
-      scale,
-      diffuse,
-      mapSamples,
-      mapBrightness,
-      baseColor,
-      markerColor,
-      glowColor,
-      opacity: 1,
-      offset: [0, 0],
-      markers: [],
-    });
+    const init = (size: number) => {
+      globeRef.current?.destroy();
+      cancelAnimationFrame(rafId.current);
 
-    let rafId: number;
-    const animate = () => {
-      if (pointerDown.current === null) phi.current += 0.003;
-      globe.update({ phi: phi.current + rotation.current });
-      rafId = requestAnimationFrame(animate);
+      const px = size * dpr;
+      canvas.width = px;
+      canvas.height = px;
+
+      globeRef.current = createGlobe(canvas, {
+        devicePixelRatio: dpr,
+        width: px,
+        height: px,
+        phi: 0,
+        theta,
+        dark,
+        scale,
+        diffuse,
+        mapSamples,
+        mapBrightness,
+        baseColor,
+        markerColor,
+        glowColor,
+        opacity: 1,
+        offset: [0, 0],
+        markers: [],
+      });
+
+      const animate = () => {
+        if (pointerDown.current === null) phi.current += 0.003;
+        globeRef.current?.update({ phi: phi.current + rotation.current });
+        rafId.current = requestAnimationFrame(animate);
+      };
+      rafId.current = requestAnimationFrame(animate);
     };
-    rafId = requestAnimationFrame(animate);
 
+    // init with current size
+    init(wrapper.offsetWidth);
     setTimeout(() => { canvas.style.opacity = '1'; }, 100);
 
+    const ro = new ResizeObserver(entries => {
+      const size = entries[0].contentRect.width;
+      if (size > 0) init(size);
+    });
+    ro.observe(wrapper);
+
     return () => {
-      cancelAnimationFrame(rafId);
-      globe.destroy();
+      ro.disconnect();
+      cancelAnimationFrame(rafId.current);
+      globeRef.current?.destroy();
     };
   }, []);
 
   return (
-    <div className={`w-full aspect-square${className ? ` ${className}` : ''}`}>
+    <div ref={wrapperRef} className={`w-full aspect-square${className ? ` ${className}` : ''}`}>
       <canvas
         ref={canvasRef}
         onPointerDown={(e) => { pointerDown.current = e.clientX - rotation.current; }}
